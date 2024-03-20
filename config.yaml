@@ -1,0 +1,28 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  my_formatter:
+    format: "%(filename)s -- %(name)s -- %(levelname)s -- %(asctime)s -- %(message)s"
+filters:
+  my_filter_info:
+    (): logging_customs.FilterByLevel
+    level: 20
+  my_filter_error:
+    (): logging_customs.FilterByLevel
+    level: 40
+handlers:
+  my_handler1:
+    class: logging_customs.MyHandler
+    level: DEBUG
+    formatter: my_formatter
+    filename: infos.log
+    filters: [my_filter_info]
+  my_handler2:
+    class: logging_customs.MyHandler
+    level: DEBUG
+    formatter: my_formatter
+    filename: errors.log
+    filters: [my_filter_error]
+root:
+  level: DEBUG
+  handlers: [my_handler1, my_handler2]
